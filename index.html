@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090d18">
+  <title>SONIC — Smart Audio Filtering</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="SONIC home">
+        <span class="brand-mark">S</span>
+        <span>SONIC<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-right">
+        <span class="preview-pill"><span class="pulse"></span> UI PREVIEW</span>
+        <span class="version">WEB PROTOTYPE / 01</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">SMART SELECTIVE AUDIO</p>
+      <h1>Hear what <span>matters.</span></h1>
+      <p class="hero-copy">A browser-based interface for AI-assisted, frequency-selective audio filtering.</p>
+    </section>
+
+    <section class="dashboard" aria-label="Audio control dashboard">
+      <div class="panel status-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">CURRENT ENVIRONMENT</p>
+            <h2 id="environment">Quiet</h2>
+          </div>
+          <span class="status-indicator"><span></span> SIMULATED</span>
+        </div>
+        <div class="sound-visual" aria-hidden="true">
+          <div class="sound-orb"></div>
+          <div class="wave wave-one"></div>
+          <div class="wave wave-two"></div>
+          <div class="wave wave-three"></div>
+        </div>
+        <div class="status-foot">
+          <span>CLASSIFIER STATUS</span>
+          <strong id="classifier-status">Not connected</strong>
+        </div>
+      </div>
+
+      <div class="panel modes-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">FILTER PROFILE</p>
+            <h2>Listening mode</h2>
+          </div>
+          <span class="tiny-label">SELECT MODE</span>
+        </div>
+        <div class="mode-grid" role="group" aria-label="Listening mode">
+          <button class="mode-card active" data-mode="Quiet" aria-pressed="true">
+            <span class="mode-icon">◌</span>
+            <span class="mode-name">Quiet</span>
+            <span class="mode-desc">Minimal filtering</span>
+          </button>
+          <button class="mode-card" data-mode="Speech/Crowd" aria-pressed="false">
+            <span class="mode-icon">〰</span>
+            <span class="mode-name">Speech / Crowd</span>
+            <span class="mode-desc">Speech-focused profile</span>
+          </button>
+          <button class="mode-card" data-mode="Noise" aria-pressed="false">
+            <span class="mode-icon">⌁</span>
+            <span class="mode-name">Noise</span>
+            <span class="mode-desc">Noise profile</span>
+          </button>
+        </div>
+        <div class="auto-row">
+          <div>
+            <strong>Automatic mode</strong>
+            <p>Switch profiles based on detected environment</p>
+          </div>
+          <button id="auto-toggle" class="switch" role="switch" aria-checked="true" aria-label="Automatic mode">
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel controls-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">AUDIO CONTROLS</p>
+            <h2>Fine-tune</h2>
+          </div>
+          <span class="tiny-label">UI ONLY</span>
+        </div>
+        <div class="slider-control">
+          <div class="slider-label"><label for="input-gain">Input gain</label><output id="input-value">6.0×</output></div>
+          <input id="input-gain" type="range" min="1" max="8" step="0.5" value="6">
+          <div class="range-ends"><span>1×</span><span>8×</span></div>
+        </div>
+        <div class="slider-control">
+          <div class="slider-label"><label for="master-volume">Output level</label><output id="volume-value">25%</output></div>
+          <input id="master-volume" type="range" min="0" max="50" step="1" value="25">
+          <div class="range-ends"><span>0%</span><span>50% cap</span></div>
+        </div>
+        <div class="control-actions">
+          <button id="mute-button" class="secondary-button" aria-pressed="true">Muted in preview</button>
+          <button id="reset-button" class="text-button">Reset controls</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel mic-panel" aria-labelledby="mic-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">MILESTONE 02</p>
+          <h2 id="mic-title">Microphone connection</h2>
+        </div>
+        <span id="mic-status" class="mic-status">NOT CONNECTED</span>
+      </div>
+      <p class="mic-copy">Connect your microphone and test the live filter engine. Processing stays in this browser. Monitoring starts muted and requires a separate click; use headphones and keep the level low.</p>
+      <div class="mic-actions">
+        <button id="mic-start" class="primary-button">Enable microphone</button>
+        <button id="monitor-toggle" class="secondary-button" disabled>Enable filtered audio</button>
+        <button id="mic-stop" class="secondary-button" disabled>Stop microphone</button>
+      </div>
+      <div class="level-wrap">
+        <div class="slider-label"><span>Input level</span><output id="mic-level-text">Waiting for permission</output></div>
+        <div class="level-track"><div id="mic-level-bar"></div></div>
+      </div>
+      <p id="mic-message" class="mic-message" role="status" aria-live="polite">Microphone is off. Press Enable microphone when you're ready.</p>
+    </section>
+
+    <section class="engine-notice">
+      <div class="notice-icon">i</div>
+      <div>
+        <strong>Local browser audio processing</strong>
+        <p>The filters run on your device. Monitoring is optional and starts muted. Use headphones to reduce feedback; this experimental filter is not hearing protection and may not preserve important warning sounds.</p>
+      </div>
+      <span class="coming-soon">STEP 03 / 05</span>
+    </section>
+
+    <footer>
+      <span>SONIC · EXPERIMENTAL AUDIO PROJECT</span>
+      <span>Local-first processing planned · No microphone data collected in this preview</span>
+    </footer>
+  </main>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
