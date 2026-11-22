@@ -133,8 +133,6 @@ The YAMNet model and MediaPipe runtime are loaded from their configured external
 
 SONIC is an experimental frequency-selective audio filtering system. It is not active noise cancellation (ANC), hearing protection, or a certified assistive listening device.
 
-It cannot guarantee that speech, alarms, horns, or other important sounds will remain audible. Do not rely on it for safety-critical listening.
-
 ## Project Structure
 
 ```text
