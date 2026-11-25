@@ -6,10 +6,12 @@ import { FILTER_SAMPLE_RATE, createProfileNode } from "./filters.js";
 export class SonicAudioEngine {
     constructor({
         onLevel = () => { },
+        onWaveform = () => { },
         onError = () => { },
         onClassification = () => { }
     } = {}) {
         this.onLevel = onLevel;
+        this.onWaveform = onWaveform;
         this.onError = onError;
         this.onClassification = onClassification;
 
@@ -270,6 +272,7 @@ export class SonicAudioEngine {
             this.onLevel(
                 Math.sqrt(sum / this.meterData.length)
             );
+            this.onWaveform(this.meterData);
 
             this.animationFrame = requestAnimationFrame(update);
         };
