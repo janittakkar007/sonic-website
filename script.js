@@ -24,6 +24,41 @@ const micLevelBar = document.querySelector("#mic-level-bar");
 const micLevelText = document.querySelector("#mic-level-text");
 
 const classifierStatus = document.querySelector("#classifier-status");
+const waveform = document.querySelector("#waveform");
+const waveformContext = waveform.getContext("2d");
+let waveformScale = 1;
+
+const WAVEFORM_SCALES = {
+    "Quiet": 1,
+    "Speech/Crowd": 0.35,
+    "Noise": 0.15
+};
+
+function drawWaveform(samples = null) {
+    const width = waveform.width;
+    const height = waveform.height;
+    waveformContext.clearRect(0, 0, width, height);
+    waveformContext.strokeStyle = "rgba(103, 232, 249, .16)";
+    waveformContext.lineWidth = 1;
+    waveformContext.beginPath();
+    waveformContext.moveTo(0, height / 2);
+    waveformContext.lineTo(width, height / 2);
+    waveformContext.stroke();
+    if (!samples) return;
+    waveformContext.strokeStyle = "#9bf4f3";
+    waveformContext.lineWidth = 2;
+    waveformContext.beginPath();
+    const step = Math.max(1, Math.floor(samples.length / width));
+    for (let x = 0; x < width; x++) {
+        const sample = samples[Math.min(samples.length - 1, x * step)] / 128 - 1;
+        const y = height / 2 + sample * height * 0.42 * waveformScale;
+        if (x === 0) waveformContext.moveTo(x, y);
+        else waveformContext.lineTo(x, y);
+    }
+    waveformContext.stroke();
+}
+
+drawWaveform();
 
 // ---------- DETECTION DISPLAY ----------
 
@@ -135,6 +170,7 @@ function getProfileForSound(soundName) {
 
 function selectMode(mode, automatic = false) {
     selectedMode = mode;
+    waveformScale = WAVEFORM_SCALES[mode] ?? 1;
 
     environment.textContent = mode;
 
@@ -404,6 +440,7 @@ micStart.addEventListener("click", async () => {
 
     engine = new SonicAudioEngine({
         onLevel: updateMeter,
+        onWaveform: samples => drawWaveform(samples),
         onClassification: updateClassification,
         onError: error => {
             console.error("Audio engine error:", error);

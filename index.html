@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,6 +36,8 @@
           <span class="status-indicator"><span></span> SIMULATED</span>
         </div>
         <div class="sound-visual" aria-hidden="true">
+          <canvas id="waveform" class="waveform" width="640" height="220"></canvas>
+          <span class="waveform-label">LIVE INPUT WAVEFORM</span>
           <div class="sound-orb"></div>
           <div class="wave wave-one"></div>
           <div class="wave wave-two"></div>
@@ -130,8 +131,18 @@
       <p id="mic-message" class="mic-message" role="status" aria-live="polite">Microphone is off. Press Enable microphone when you're ready.</p>
     </section>
 
+    <section class="engine-notice">
+      <div class="notice-icon">i</div>
+      <div>
+        <strong>Local browser audio processing</strong>
+        <p>The filters run on your device. Monitoring is optional and starts muted. Use headphones to reduce feedback; this experimental filter is not hearing protection and may not preserve important warning sounds.</p>
+      </div>
+      <span class="coming-soon">STEP 03 / 05</span>
+    </section>
+
     <footer>
       <span>SONIC · EXPERIMENTAL AUDIO PROJECT</span>
+      <span>Local-first processing planned · No microphone data collected in this preview</span>
     </footer>
   </main>
   <script type="module" src="script.js"></script>
